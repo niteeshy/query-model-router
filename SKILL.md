@@ -13,6 +13,12 @@ This is advisory, not a pre-dispatch router. The host selects a model before loa
 
 For reliable savings, recommend selecting an efficient model before sending routine requests. Respect an explicitly chosen model. Do not change defaults, start another chat, launch a nested model call or delegate merely to simulate switching. Use a genuine model-selection control only if available and authorised; report success only after confirmation.
 
+## Default operating rule
+
+For a routine question with a clear answer, the user should select GPT-6 Luna (`gpt-6-luna`) with low reasoning before sending it. Do not invoke this skill for every known routine question. If Luna is unavailable, select the smallest available equivalent with low supported effort.
+
+Invoke this skill when the task is uncertain, ambiguous, unusually consequential or likely to need more than routine reasoning. The skill recommends first and pauses. The user then changes the model and reasoning effort in the host control, if needed, and tells the assistant to continue. Automatic routing would require a mechanism that selects the model before the main request runs; this skill cannot provide that mechanism.
+
 ## Let the user choose
 
 Any explicit invocation of this skill is a request to route before work, even when the skill mention is attached after the user's query and even when the query looks simple. Assess the task before answering or acting and present a short choice prompt:

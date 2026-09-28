@@ -4,6 +4,8 @@ Date: 28 September 2026.
 
 Method: the same assistant that authored the skill loaded its installed instructions and applied them to these cases in the existing conversation. No model was switched and no additional model was called. The quoted tasks were evaluated, not executed. This checks rule application and clarity, not real performance or measured savings. Author self-evaluation can miss problems; independent testing remains open.
 
+Operating rule: a known routine question is sent after the user manually selects GPT-6 Luna with low reasoning. The router is invoked only when model fit or task complexity is uncertain.
+
 To repeat: load SKILL.md, submit each quoted request as a routing-only query and compare the reason and escalation condition, not exact wording. Choose only models exposed by the test host. For these observations the host exposed GPT-6 Luna, Sol and Astra with low reasoning available.
 
 | Case | Query | Observed recommendation | Reason and escalation condition |
