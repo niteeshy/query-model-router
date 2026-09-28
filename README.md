@@ -43,12 +43,12 @@ If the skill does not appear, start a new Codex session. This local installation
 For routine work, select the smallest suitable model and a low supported reasoning effort before sending your first request. Then invoke the skill once at the start of the session. Ask it to present a recommendation and let you choose:
 
 ```text
-$query-model-router For this session, assess the task before substantial work. Show the recommended model or capability tier, supported reasoning effort, one reason, and these choices: 1) switch to the recommendation, 2) keep the current model, or 3) use a cheaper model or lower effort if available, with its trade-off. Pause so I can choose. Do not claim to switch the model yourself. For simple requests, answer directly unless a model choice would materially matter. Reassess when the task’s complexity changes.
+$query-model-router For this session and every message that invokes this skill, assess the task before answering or acting. Show the recommended model or capability tier, supported reasoning effort, one reason, and these choices: 1) switch to the recommendation, 2) keep the current model, or 3) use a cheaper model or lower effort if available, with its trade-off. Pause so I can choose. Do not claim to switch the model yourself. Reassess when the task’s complexity changes.
 ```
 
 Continue with your normal requests. If the assistant recommends a change, choose one of the options, select the model and reasoning effort yourself when needed, then ask it to continue. The recommendation does not change the active model.
 
-Repeat the session-start instruction in a new chat. Within a session, invoke the skill again when the task changes substantially or you want an explicit reassessment. Avoid a separate classification request for every small message: routing also consumes usage. If you do not want to pause, say so and it will show the advice while continuing.
+Repeat the session-start instruction in a new chat. Within a session, invoke the skill again when the task changes substantially or you want an explicit reassessment. An explicit skill mention always recommends first, even when attached after the query. Avoid invoking it for every small message because routing also consumes usage. If you do not want to pause, say “recommend first, then continue without waiting for my choice”.
 
 ### Check one task before starting
 
@@ -67,10 +67,10 @@ $query-model-router The task now involves a failure across several services. Rea
 ### Get advice without pausing
 
 ```text
-$query-model-router While helping with this task, flag material model mismatches and keep routine answers concise. Continue the authorised work without waiting for a model change.
+$query-model-router Recommend first, then continue without waiting for my choice. Keep routine answers concise and flag material model mismatches while helping with this task.
 ```
 
-Automatic discovery is enabled, but invocation on every message is not guaranteed. Explicit invocation is the more reliable way to request a recommendation. The pause in the session-start example is a user-requested checkpoint, not an automatic model switch or a spending cap. The skill never overrides the user's choice.
+Automatic discovery is enabled, but invocation on every message is not guaranteed. Explicit invocation is the reliable way to request a recommendation first. The default pause is a user-choice checkpoint, not an automatic model switch or a spending cap. The skill never overrides the user's choice.
 
 ## Validation and limitations
 

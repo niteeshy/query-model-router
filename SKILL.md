@@ -15,7 +15,7 @@ For reliable savings, recommend selecting an efficient model before sending rout
 
 ## Let the user choose
 
-When the user explicitly invokes this skill to route a session or asks for a checkpoint before substantial work, assess the task before doing that work and present a short choice prompt:
+Any explicit invocation of this skill is a request to route before work, even when the skill mention is attached after the user's query and even when the query looks simple. Assess the task before answering or acting and present a short choice prompt:
 
 ```text
 Recommendation: [available model or tier] with [supported effort].
@@ -23,9 +23,9 @@ Why: [one concrete reason].
 Choose: 1) switch to the recommendation, 2) keep the current model, or 3) use a cheaper model or lower effort if available, with its trade-off.
 ```
 
-Pause for the user's choice when the user asked for a pause. Do not switch the model yourself. If the user chooses to keep the current model, continue without repeating the warning. If the user chooses a recommendation, tell them the model and effort to select in the host control, then continue when they are ready. If exact model availability is unknown, offer capability tiers and say that the host must resolve the model name. Never invent the active model.
+Pause for the user's choice by default. Continue without pausing only when the user explicitly asks for that in the same prompt or a follow-up. Do not switch the model yourself. If the user chooses to keep the current model, continue without repeating the warning. If the user chooses a recommendation, tell them the model and effort to select in the host control, then continue when they are ready. If exact model availability is unknown, offer capability tiers and say that the host must resolve the model name. Never invent the active model.
 
-If the user asks for routing advice without a pause, show the same recommendation and choices, then continue the authorised task. For implicit invocation during ordinary work, keep the choice prompt quiet unless a material mismatch would affect quality or usage. The user always has final say; escalation is advice, not enforcement.
+For implicit invocation during ordinary work, keep the choice prompt quiet unless a material mismatch would affect quality or usage. The user always has final say; escalation is advice, not enforcement.
 
 ## Decide cheaply
 
@@ -51,9 +51,9 @@ The effort suggestions above are a usage-saving heuristic, not a benchmark or of
 
 ## Respond and reassess
 
-When asked only to route a query, return the recommendation, one concrete reason, three choices for the user and the condition that would justify escalation. Do not execute the quoted query.
+When asked only to route a query, return the recommendation, one concrete reason, three choices for the user and the condition that would justify escalation. Do not execute the quoted query. When an explicit invocation is attached to a task, make the recommendation the first response and wait for the choice unless the user explicitly opted out of pausing.
 
-When applied during ordinary work, keep triage silent unless a different model would materially help. A trivial task should receive its concise answer, not a routing ceremony. For substantial work on an oversized model, briefly show the recommendation and choices before heavy work if the user asked for checkpoints; do not claim the recommendation changed the model. Continue the authorised task unless the user requested a routing-only checkpoint or paused execution.
+When applied through implicit discovery during ordinary work, keep triage silent unless a different model would materially help. A trivial task should receive its concise answer, not a routing ceremony. For substantial work on an oversized model, briefly show the recommendation and choices before heavy work if the user asked for checkpoints; do not claim the recommendation changed the model. Continue the authorised task unless the user requested a routing-only checkpoint or paused execution.
 
 Use task-appropriate checks. Escalate after a meaningful capability failure survives a focused correction, or when new dependencies make the original tier insufficient. Do not escalate for a missing credential, inaccessible file or broken tool. Once the difficult part is resolved, recommend returning to a smaller tier for mechanical follow-up. Never sacrifice required verification to save tokens.
 
