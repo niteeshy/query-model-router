@@ -1,0 +1,6 @@
+interface:
+  display_name: "Query Model Router"
+  short_description: "Choose a suitable model with lower usage"
+  default_prompt: "Use $query-model-router to recommend the smallest suitable model and reasoning effort for my query, with one reason and an escalation condition."
+policy:
+  allow_implicit_invocation: true
