@@ -13,6 +13,20 @@ This is advisory, not a pre-dispatch router. The host selects a model before loa
 
 For reliable savings, recommend selecting an efficient model before sending routine requests. Respect an explicitly chosen model. Do not change defaults, start another chat, launch a nested model call or delegate merely to simulate switching. Use a genuine model-selection control only if available and authorised; report success only after confirmation.
 
+## Let the user choose
+
+When the user explicitly invokes this skill to route a session or asks for a checkpoint before substantial work, assess the task before doing that work and present a short choice prompt:
+
+```text
+Recommendation: [available model or tier] with [supported effort].
+Why: [one concrete reason].
+Choose: 1) switch to the recommendation, 2) keep the current model, or 3) use a cheaper model or lower effort if available, with its trade-off.
+```
+
+Pause for the user's choice when the user asked for a pause. Do not switch the model yourself. If the user chooses to keep the current model, continue without repeating the warning. If the user chooses a recommendation, tell them the model and effort to select in the host control, then continue when they are ready. If exact model availability is unknown, offer capability tiers and say that the host must resolve the model name. Never invent the active model.
+
+If the user asks for routing advice without a pause, show the same recommendation and choices, then continue the authorised task. For implicit invocation during ordinary work, keep the choice prompt quiet unless a material mismatch would affect quality or usage. The user always has final say; escalation is advice, not enforcement.
+
 ## Decide cheaply
 
 Use the query and relevant context already available. Avoid a planning phase, repository scan, research pass or second model call solely to classify it. Judge ambiguity, interacting constraints, required judgement, consequences of error and ease of checking. Prompt length and words such as "research" or "quick" are not complexity scores.
@@ -37,9 +51,9 @@ The effort suggestions above are a usage-saving heuristic, not a benchmark or of
 
 ## Respond and reassess
 
-When asked only to route a query, return at most three short lines: recommended model/tier and effort, one concrete reason, then the condition that would justify escalation. Do not execute the quoted query.
+When asked only to route a query, return the recommendation, one concrete reason, three choices for the user and the condition that would justify escalation. Do not execute the quoted query.
 
-When applied during ordinary work, keep triage silent unless a different model would materially help. A trivial task should receive its concise answer, not a routing ceremony. For substantial work on an oversized model, briefly recommend a cheaper setting before heavy work; do not claim the recommendation changed the model. Continue the authorised task unless the user requested a routing-only checkpoint or paused execution.
+When applied during ordinary work, keep triage silent unless a different model would materially help. A trivial task should receive its concise answer, not a routing ceremony. For substantial work on an oversized model, briefly show the recommendation and choices before heavy work if the user asked for checkpoints; do not claim the recommendation changed the model. Continue the authorised task unless the user requested a routing-only checkpoint or paused execution.
 
 Use task-appropriate checks. Escalate after a meaningful capability failure survives a focused correction, or when new dependencies make the original tier insufficient. Do not escalate for a missing credential, inaccessible file or broken tool. Once the difficult part is resolved, recommend returning to a smaller tier for mechanical follow-up. Never sacrifice required verification to save tokens.
 

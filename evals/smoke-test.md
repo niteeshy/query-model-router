@@ -17,6 +17,8 @@ To repeat: load SKILL.md, submit each quoted request as a routing-only query and
 | Explicit preference | Use Astra even though this is a simple translation. | Respect Astra; recommend low effort. | Do not override an explicit model choice. Note that a small tier would otherwise suffice if asked about savings. |
 | Different host | Recommend a model in Chat, but no model list is available. | Small/balanced/frontier tier as appropriate; exact model unresolved. | Do not assume Codex models exist in Chat. Resolve the actual catalogue before naming a model. |
 
-Boundary check: none of these recommendations claims the active model changed. The installation's implicit invocation setting allows discovery but does not ensure that every request activates this skill.
+Boundary check: none of these recommendations claims the active model changed. A correct interactive response presents a recommendation plus choices to switch, keep the current model or accept a cheaper trade-off, then respects the user's selection. The installation's implicit invocation setting allows discovery but does not ensure that every request activates this skill.
+
+Interactive checkpoint example: for the one-module date parsing bug, present Sol/low as the recommendation, explain that the failing test gives a clear causal check, offer the three choices and pause. If the user chooses to keep the current model, continue without repeating the recommendation. If the user chooses to switch, tell them what to select in the model control and wait for them to say ready.
 
 Not tested: repeated independent model runs, actual task execution on each recommended model, automatic invocation rate, token use, subscription credits, latency or outcome quality. The recommendations remain heuristics.

@@ -40,15 +40,15 @@ If the skill does not appear, start a new Codex session. This local installation
 
 ## Use during a session
 
-For routine work, select the smallest suitable model and a low supported reasoning effort before sending your first request. Then invoke the skill once at the start of the session:
+For routine work, select the smallest suitable model and a low supported reasoning effort before sending your first request. Then invoke the skill once at the start of the session. Ask it to present a recommendation and let you choose:
 
 ```text
-$query-model-router For this session, favour the smallest suitable model and reasoning effort. Answer simple requests directly without routing commentary. Before substantial work, if another model would be more appropriate, recommend it in one sentence and pause so I can switch. Reassess when the task’s complexity changes.
+$query-model-router For this session, assess the task before substantial work. Show the recommended model or capability tier, supported reasoning effort, one reason, and these choices: 1) switch to the recommendation, 2) keep the current model, or 3) use a cheaper model or lower effort if available, with its trade-off. Pause so I can choose. Do not claim to switch the model yourself. For simple requests, answer directly unless a model choice would materially matter. Reassess when the task’s complexity changes.
 ```
 
-Continue with your normal requests. If the assistant recommends a change, select the model and reasoning effort yourself, then ask it to continue. The recommendation does not change the active model.
+Continue with your normal requests. If the assistant recommends a change, choose one of the options, select the model and reasoning effort yourself when needed, then ask it to continue. The recommendation does not change the active model.
 
-Repeat the session-start instruction in a new chat. Within a session, invoke the skill again when the task changes substantially or you want an explicit reassessment. Avoid a separate classification request for every small message: routing also consumes usage.
+Repeat the session-start instruction in a new chat. Within a session, invoke the skill again when the task changes substantially or you want an explicit reassessment. Avoid a separate classification request for every small message: routing also consumes usage. If you do not want to pause, say so and it will show the advice while continuing.
 
 ### Check one task before starting
 
@@ -56,7 +56,7 @@ Repeat the session-start instruction in a new chat. Within a session, invoke the
 $query-model-router Recommend a model and reasoning effort for this task without executing it: fix a typo in a heading.
 ```
 
-Example recommendation: small tier, lowest supported reasoning effort, because the change is local and easy to check.
+Example recommendation: small tier, lowest supported reasoning effort, because the change is local and easy to check. The choice is yours: switch, keep the current model, or accept a cheaper trade-off where one exists.
 
 ### Reassess after the task changes
 
@@ -70,7 +70,7 @@ $query-model-router The task now involves a failure across several services. Rea
 $query-model-router While helping with this task, flag material model mismatches and keep routine answers concise. Continue the authorised work without waiting for a model change.
 ```
 
-Automatic discovery is enabled, but invocation on every message is not guaranteed. Explicit invocation is the more reliable way to request a recommendation. The pause in the session-start example is a user-requested checkpoint, not an automatic model switch or a spending cap.
+Automatic discovery is enabled, but invocation on every message is not guaranteed. Explicit invocation is the more reliable way to request a recommendation. The pause in the session-start example is a user-requested checkpoint, not an automatic model switch or a spending cap. The skill never overrides the user's choice.
 
 ## Validation and limitations
 
