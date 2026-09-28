@@ -38,21 +38,39 @@ fi
 
 If the skill does not appear, start a new Codex session. This local installation does not install it in ChatGPT web or mobile.
 
-## Use
+## Use during a session
+
+For routine work, select the smallest suitable model and a low supported reasoning effort before sending your first request. Then invoke the skill once at the start of the session:
 
 ```text
-$query-model-router Recommend a model for this task: fix a typo in a heading.
+$query-model-router For this session, favour the smallest suitable model and reasoning effort. Answer simple requests directly without routing commentary. Before substantial work, if another model would be more appropriate, recommend it in one sentence and pause so I can switch. Reassess when the task’s complexity changes.
+```
+
+Continue with your normal requests. If the assistant recommends a change, select the model and reasoning effort yourself, then ask it to continue. The recommendation does not change the active model.
+
+Repeat the session-start instruction in a new chat. Within a session, invoke the skill again when the task changes substantially or you want an explicit reassessment. Avoid a separate classification request for every small message: routing also consumes usage.
+
+### Check one task before starting
+
+```text
+$query-model-router Recommend a model and reasoning effort for this task without executing it: fix a typo in a heading.
 ```
 
 Example recommendation: small tier, lowest supported reasoning effort, because the change is local and easy to check.
 
-For an advisory workflow during execution:
+### Reassess after the task changes
 
 ```text
-Use $query-model-router while helping with this task. Flag material model mismatches and keep routine answers concise.
+$query-model-router The task now involves a failure across several services. Reassess the model and reasoning effort before continuing, and pause if I should switch.
 ```
 
-Automatic discovery is enabled, but invocation on every message is not guaranteed. Explicit invocation is the more reliable way to request a recommendation. A routing-only request evaluates the quoted task without executing it.
+### Get advice without pausing
+
+```text
+$query-model-router While helping with this task, flag material model mismatches and keep routine answers concise. Continue the authorised work without waiting for a model change.
+```
+
+Automatic discovery is enabled, but invocation on every message is not guaranteed. Explicit invocation is the more reliable way to request a recommendation. The pause in the session-start example is a user-requested checkpoint, not an automatic model switch or a spending cap.
 
 ## Validation and limitations
 
